@@ -63,7 +63,8 @@ namespace Albee
                 return;
             }
 
-            Destroy(item.gameObject);
+            item.transform.SetParent(null);
+            item.Hide();
         }
     }
 }
