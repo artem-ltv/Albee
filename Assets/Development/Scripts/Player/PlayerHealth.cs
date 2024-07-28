@@ -6,13 +6,9 @@ namespace Albee
     public class PlayerHealth : MonoBehaviour
     {
         public UnityAction<int> OnHealthChanged;
+        public int Health => _health;
 
         [SerializeField] private int _health;
-
-        private void Start()
-        {
-            OnHealthChanged?.Invoke(_health);
-        }
 
         public void TryAddDamage(int health)
         {

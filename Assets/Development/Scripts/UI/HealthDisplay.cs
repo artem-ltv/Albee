@@ -18,7 +18,17 @@ namespace Albee
             _playerHealth.OnHealthChanged -= OnHealthChangedHandler;
         }
 
+        private void Start()
+        {
+            UpdateHealthDisplay(_playerHealth.Health);
+        }
+
         private void OnHealthChangedHandler(int health)
+        {
+            UpdateHealthDisplay(health);
+        }
+
+        private void UpdateHealthDisplay(int health)
         {
             _healthTextDisplay.SetText(health.ToString());
         }
