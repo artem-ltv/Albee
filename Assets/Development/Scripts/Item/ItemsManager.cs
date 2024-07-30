@@ -11,6 +11,12 @@ namespace Albee
         [SerializeField] private ItemSpawner _itemSpawner;
         [SerializeField] private ItemPlace _itemPlace;
         [SerializeField] private ItemPlaceSpawner _itemPlaceSpawner;
+        [SerializeField] private ItemPointer _itemPointer;
+
+        private void Start()
+        {
+            _itemPointer.SetItem(_item.transform);
+        }
 
         private void OnEnable()
         {
@@ -27,6 +33,8 @@ namespace Albee
         private void OnItemTakeHandler(Item item)
         {
             _itemPlaceSpawner.Spawn();
+
+            _itemPointer.SetItem(_itemPlace.transform);
         }
 
         private void OnItemPlaceEnterHandler(ItemPlace itemPlace)
@@ -36,6 +44,8 @@ namespace Albee
             itemPlace.Hide();
 
             _itemSpawner.Spawn();
+
+            _itemPointer.SetItem(_item.transform);
         }
     }
 }
