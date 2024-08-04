@@ -1,41 +1,59 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Albee
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyAttacker))]
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private Transform _player;
-        [SerializeField] private float _moveSpeed;
-        [SerializeField] private int _damage;
+        [SerializeField] private GameObject[] _skins;
 
-        private NavMeshAgent _navMeshAgent;
+        private EnemyAttacker _attacker;
+
+        private void Awake()
+        {
+            _attacker = GetComponent<EnemyAttacker>();
+        }
+
+        private void OnEnable()
+        {
+            _attacker.OnAttacked += OnAttackedHandler;
+        }
+
+        private void OnDisable()
+        {
+            _attacker.OnAttacked -= OnAttackedHandler;
+        }
 
         private void Start()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            _navMeshAgent.speed = _moveSpeed;
+            HideAllSkins();
+            EnableRandomSkin();
         }
 
-        private void Update()
+        private void OnAttackedHandler()
         {
-            _navMeshAgent.SetDestination(_player.position);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(collision.gameObject.TryGetComponent(out PlayerHealth playerHealth))
-            {
-                playerHealth.TryAddDamage(_damage);
-
-                Hide();
-            }
+            Hide();
         }
 
         private void Hide()
         {
+            // Изменить
             Destroy(gameObject);
+        }
+
+        private void HideAllSkins()
+        {
+            foreach(var skin in _skins)
+            {
+                skin.SetActive(false);
+            }
+        }
+
+        private void EnableRandomSkin()
+        {
+            int randomIndex = Random.Range(0, _skins.Length);
+
+            _skins[randomIndex].SetActive(true);
         }
     }
 }
