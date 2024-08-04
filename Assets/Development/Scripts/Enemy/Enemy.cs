@@ -26,8 +26,8 @@ namespace Albee
 
         private void Start()
         {
-            HideAllSkins();
-            EnableRandomSkin();
+            //HideAllSkins();
+            //EnableRandomSkin();
         }
 
         private void OnAttackedHandler()
