@@ -6,9 +6,9 @@ namespace Albee
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMover : MonoBehaviour
     {
-        [SerializeField] private Transform _player;
         [SerializeField] private float _moveSpeed;
 
+        private Transform _player;
         private NavMeshAgent _navMeshAgent;
 
         private void Start()
@@ -19,7 +19,15 @@ namespace Albee
 
         private void Update()
         {
-            _navMeshAgent.SetDestination(_player.position);
+            if(_player != null)
+            {
+                _navMeshAgent.SetDestination(_player.position);
+            }
+        }
+
+        public void SetTarget(Transform player)
+        {
+            _player = player;
         }
     }
 }
