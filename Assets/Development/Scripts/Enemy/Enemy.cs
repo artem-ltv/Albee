@@ -37,8 +37,7 @@ namespace Albee
 
         private void Hide()
         {
-            // Изменить
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         private void HideAllSkins()
