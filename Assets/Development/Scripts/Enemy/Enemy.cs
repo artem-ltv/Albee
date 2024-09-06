@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Albee
 {
     [RequireComponent(typeof(EnemyAttacker))]
     public class Enemy : MonoBehaviour
     {
+        public UnityAction<Enemy> OnHiding;
+
         [SerializeField] private GameObject[] _skins;
 
         private EnemyAttacker _attacker;
@@ -32,12 +35,7 @@ namespace Albee
 
         private void OnAttackedHandler()
         {
-            Hide();
-        }
-
-        private void Hide()
-        {
-            gameObject.SetActive(false);
+            OnHiding?.Invoke(this);
         }
 
         private void HideAllSkins()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Albee
 {
-    public class ObjectsPool<T> : MonoBehaviour
+    public class ObjectPool<T> : MonoBehaviour
         where T : MonoBehaviour
     {
         private readonly GameObject _container;
@@ -13,7 +13,7 @@ namespace Albee
 
         private List<T> _pool = new List<T>();
 
-        public ObjectsPool(T prefab, GameObject container, int capacity)
+        public ObjectPool(T prefab, GameObject container, int capacity)
         {
             _prefab = prefab;
             _container = container;
@@ -36,6 +36,11 @@ namespace Albee
             result.gameObject.SetActive(true);
 
             return result;
+        }
+
+        public void Release(T obj)
+        {
+            obj.gameObject.SetActive(false);
         }
 
         private void CreatePool()
