@@ -21,8 +21,7 @@ namespace Albee
 
             Vector3 directionToItem = _item.position - _player.position;
             Ray ray = new Ray(_player.position, directionToItem);
-            Debug.DrawRay(_player.position, directionToItem);
-
+            
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_camera);
 
             float minDistance = Mathf.Infinity;

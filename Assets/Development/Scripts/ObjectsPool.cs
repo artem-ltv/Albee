@@ -38,11 +38,6 @@ namespace Albee
             return result;
         }
 
-        public void Release(T obj)
-        {
-            obj.gameObject.SetActive(false);
-        }
-
         private void CreatePool()
         {
             for (int i = 0; i < _capacity; i++)

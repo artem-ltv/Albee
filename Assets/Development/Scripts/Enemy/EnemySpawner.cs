@@ -8,15 +8,27 @@ namespace Albee
         [SerializeField] private GameObject _poolContainer;
         [SerializeField] private int _poolCapacity;
         [SerializeField] private Transform _player;
+        [SerializeField] private ItemsManager _itemsManager;
 
         private ObjectsPool<Enemy> _enemyPool;
+
+        private void OnEnable()
+        {
+            _itemsManager.OnItemDeliveredToPlace += Spawn;
+        }
+
+        private void OnDisable()
+        {
+            _itemsManager.OnItemDeliveredToPlace -= Spawn;
+        }
 
         private void Start()
         {
             _enemyPool = new ObjectsPool<Enemy>(_enemy, _poolContainer, _poolCapacity);
+
+            Spawn();
         }
 
-        [ContextMenu("Spawn")]
         public override void Spawn()
         {
             Enemy newEnemy = _enemyPool.Get();
